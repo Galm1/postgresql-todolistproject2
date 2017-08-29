@@ -144,6 +144,43 @@ todolist=# select details from todos where completedAt is null;
 
 
 ```
+////////////////////////////////////////////
+```
+
+todolist=# select * from todos
+todolist-# ;
+
+ id |     title     |                       details                        | priority |         createdat          |        completedat         
+----+---------------+------------------------------------------------------+----------+----------------------------+----------------------------
+  2 | postgresql    | learn this crap                                      |        5 | 2017-08-28 15:38:15.185521 |
+  3 | some title    | here is something i need todo                        |        2 | 2017-08-28 15:38:15.187581 |
+  5 | food          | go get some apples                                   |        1 | 2017-08-29 11:13:04.446635 |
+  6 | food          | get some kiwis                                       |        1 | 2017-08-29 11:13:04.447937 |
+  8 | another title | here is a todo detail that i couldnt think of        |        5 | 2017-08-29 11:13:04.450801 |
+  9 | be            | the BEST.... AROUND                                  |        4 | 2017-08-29 11:13:04.451941 |
+ 10 | aint          | nobody ever gunna bring me down                      |        4 | 2017-08-29 11:13:04.453198 |
+ 11 | ok            | time to take this list seriously                     |        5 | 2017-08-29 11:13:04.52201  |
+ 12 | school        | complete last weeks weekly                           |        5 | 2017-08-29 11:13:04.523908 |
+ 13 | school        | be just overall better                               |        5 | 2017-08-29 11:13:04.525264 |
+ 14 | school        | stay late                                            |        3 | 2017-08-29 11:13:04.526529 |
+ 15 | meet ups      | node meet up with gil                                |        4 | 2017-08-29 11:13:04.527843 |
+ 17 | meet ups      | go to more meet ups!                                 |        5 | 2017-08-29 11:13:04.53032  |
+ 18 | league        | get to honor 5                                       |        2 | 2017-08-29 11:13:04.531459 |
+ 19 | league        | git gud scrub                                        |        3 | 2017-08-29 11:13:04.532586 |
+ 20 | league        | uninstall and kys                                    |        5 | 2017-08-29 11:13:04.622307 |
+ 21 | life          | live                                                 |        1 | 2017-08-29 11:13:04.625354 |
+ 22 | life          | learn to fly                                         |        4 | 2017-08-29 11:13:04.626633 |
+ 23 | life          | travel                                               |        5 | 2017-08-29 11:13:05.65367  |
+  4 | get gud       | take time to study more                              |        2 | 2017-08-29 11:13:04.424422 | 2017-08-29 11:19:16.520726
+  7 | food          | how about some bread. need some of that bread mannnn |        1 | 2017-08-29 11:13:04.449371 | 2017-08-29 11:19:16.525833
+ 16 | meet ups      | go to a meet up with andrew                          |        4 | 2017-08-29 11:13:04.529138 | 2017-08-29 11:19:19.672182
+(22 rows)
+
+~
+~
+~
+
+```
 
 ```
 
@@ -182,5 +219,79 @@ todolist=# select details from todos where completedAt is null and id = 3;
 -------------------------------
  here is something i need todo
 (1 row)
+
+```
+
+```
+
+todolist=# select priority from todos where completedAt is null;
+ priority
+----------
+        5
+        2
+        1
+        1
+        5
+        4
+        4
+        5
+        5
+        5
+        3
+        4
+        5
+        2
+        3
+        5
+        1
+        4
+        5
+(19 rows)
+
+```
+
+```
+
+todolist=# select priority from todos where todos.completedAt > current_timestamp - interval '30' day;
+ priority
+----------
+        2
+        1
+        4
+(3 rows)
+
+```
+
+```
+
+todolist=# select details, min(createdAt) from todos where priority =5 group by title, details;
+                    details                    |            min             
+-----------------------------------------------+----------------------------
+ here is a todo detail that i couldnt think of | 2017-08-29 11:13:04.450801
+ uninstall and kys                             | 2017-08-29 11:13:04.622307
+ travel                                        | 2017-08-29 11:13:05.65367
+ go to more meet ups!                          | 2017-08-29 11:13:04.53032
+ time to take this list seriously              | 2017-08-29 11:13:04.52201
+ learn this crap                               | 2017-08-28 15:38:15.185521
+ be just overall better                        | 2017-08-29 11:13:04.525264
+ complete last weeks weekly                    | 2017-08-29 11:13:04.523908
+(8 rows)
+
+todolist=#
+
+
+now i need to figure out how to get the highest one only
+
+```
+
+```
+
+todolist=# select details, min(createdAt) from todos where priority =5 group by title, details limit 1;
+                    details                    |            min             
+-----------------------------------------------+----------------------------
+ here is a todo detail that i couldnt think of | 2017-08-29 11:13:04.450801
+(1 row)
+
+todolist=#
 
 ```
