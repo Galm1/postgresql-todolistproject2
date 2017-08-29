@@ -18,3 +18,12 @@ INSERT INTO todos (title, details, priority, createdAt) VALUES ('league', 'unins
 INSERT INTO todos (title, details, priority, createdAt) VALUES ('life', 'live', 1, current_timestamp);
 INSERT INTO todos (title, details, priority, createdAt) VALUES ('life', 'learn to fly', 4, current_timestamp);
 INSERT INTO todos (title, details, priority, createdAt) VALUES ('life', 'travel', 5, current_timestamp);
+
+
+update todos set completedat = current_timestamp where id = 4;
+update todos set completedat = current_timestamp where id = 7;
+update todos set completedat = current_timestamp where id = 16;
+
+
+select title from todos where completedAt is null and id = 3;
+select details from todos where completedAt is null and id = 3;

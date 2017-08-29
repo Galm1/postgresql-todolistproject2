@@ -144,3 +144,43 @@ todolist=# select details from todos where completedAt is null;
 
 
 ```
+
+```
+
+todolist=# update todos set completedat = current_timestamp where id = 4;
+UPDATE 1
+todolist=# update todos set completedat = current_timestamp where id = 7;
+UPDATE 1
+todolist=# update todos set completedat = current_timestamp where id = 16;
+UPDATE 1
+todolist=# select title and details from todos where completedAt is not null;
+ERROR:  argument of AND must be type boolean, not type character varying
+LINE 1: select title and details from todos where completedAt is not...
+               ^
+todolist=# select details from todos where completedAt is not null;
+                       details                        
+------------------------------------------------------
+ take time to study more
+ how about some bread. need some of that bread mannnn
+ go to a meet up with andrew
+(3 rows)
+
+todolist=#
+
+```
+
+```
+
+todolist=# select title from todos where completedAt is null and id = 3;
+   title    
+------------
+ some title
+(1 row)
+
+todolist=# select details from todos where completedAt is null and id = 3;
+            details            
+-------------------------------
+ here is something i need todo
+(1 row)
+
+```
