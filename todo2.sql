@@ -25,8 +25,7 @@ update todos set completedat = current_timestamp where id = 7;
 update todos set completedat = current_timestamp where id = 16;
 
 
-select title from todos where completedAt is null and id = 3;
+select title from todos where completedAt is null and priority = 3;
 select details from todos where completedAt is null and id = 3;
-select priority from todos where todos.completedAt > current_timestamp - interval '30' day;
-select details, min(createdAt) from todos where priority =5 group by title, details;dtyf
+select priority from todos where todos.completedAt > (current_timestamp - interval '30' day);
 select details, min(createdAt) from todos where priority =5 group by title, details limit 1;
